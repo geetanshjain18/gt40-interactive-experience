@@ -1,0 +1,5 @@
+import fs from 'node:fs'
+import * as T from 'three'
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
+globalThis.ProgressEvent=class extends Event{constructor(t,o){super(t);Object.assign(this,o)}}
+const b=fs.readFileSync('public/models/gt40-gulf-number-6.glb'),l=new GLTFLoader();l.register(()=>({name:'qa',loadTexture:async()=>new T.Texture()}));const {scene}=await l.parseAsync(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),'');const box=new T.Box3().setFromObject(scene),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3()),scale=4.8/size.x;const group=new T.Group();group.scale.setScalar(scale);group.rotation.y=-Math.PI/2;scene.position.set(-center.x,-box.min.y,-center.z);group.add(scene);group.updateMatrixWorld(true);for(const n of ['GT40_HeadLights','GT40_HeadLightGlass','GT40_WindowL','GT40_WindowR','GT40_Windshield','GT40_SteeringWheel1','GT40_EngineBlock1','GT40_BackWindow1','GT40_BackWindow2']){const o=scene.getObjectByName(n),b=new T.Box3().setFromObject(o);console.log(n,b.min.toArray(),b.max.toArray());o.traverse(m=>{if(m.isMesh)console.log(m.name,m.material.name)})}

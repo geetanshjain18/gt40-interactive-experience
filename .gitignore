@@ -1,0 +1,34 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+artifacts/
+test-results/
+debug-*.png
+
+# Keep only the model used by the published study; the other assets are legacy references.
+public/models/*
+!public/models/gt40-gulf-number-6.glb
+public/sequence/
+public/reference/
+public/engine-idle.wav
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

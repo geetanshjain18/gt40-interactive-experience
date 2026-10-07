@@ -1,0 +1,5 @@
+﻿from pathlib import Path
+p=Path('src/components/canvas/HeadlightBloom.tsx');s=p.read_bytes().replace(b'\xef\xbb\xbf',b'').decode('utf-8');s=s.replace("import { useEffect", "import type { Motion } from '../../config/choreography'\nimport { useEffect").replace('export function HeadlightBloom(){','export function HeadlightBloom({motion}:{motion:React.RefObject<Motion>}){').replace('if(disabled.current)gl.render(scene,camera);else pipeline.composer.render(dt)','pipeline.bloom.strength=.18*Math.max(0,1-Math.max(0,motion.current.time-1.6));if(disabled.current||motion.current.time>=2.6)gl.render(scene,camera);else pipeline.composer.render(dt)');p.write_text(s,encoding='utf-8')
+for name in ['src/App.tsx','src/components/canvas/VehicleModel.tsx']:
+ p=Path(name);s=p.read_bytes().decode('utf-8-sig');p.write_text('\n'.join(line.rstrip() for line in s.splitlines()).rstrip()+'\n',encoding='utf-8')
+p=Path('src/components/canvas/ExperienceCanvas.tsx');s=p.read_text().replace('<HeadlightBloom/>','<HeadlightBloom motion={motion}/>');p.write_text(s)

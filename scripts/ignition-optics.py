@@ -1,0 +1,7 @@
+﻿from pathlib import Path
+p=Path('src/components/canvas/HeadlightBloom.tsx');s=p.read_text().replace("import { Vector2 }", "import { Vector2, WebGLRenderTarget, HalfFloatType }").replace('new EffectComposer(gl)','new EffectComposer(gl,new WebGLRenderTarget(1,1,{type:HalfFloatType,samples:4}))').replace('512,512),.22,.35,3','512,512),.18,.3,10').replace('Math.min(gl.getPixelRatio(),1)','gl.getPixelRatio()');p.write_text(s)
+p=Path('src/components/canvas/VehicleModel.tsx');s=p.read_text().replace('? 1.5 : 9','? 2 : 25');p.write_text(s)
+p=Path('src/hooks/useMotion.ts');s=p.read_text().replace('CHOREOGRAPHY as C','CHOREOGRAPHY as C, smooth');s=s.replace('let raf=0,last=performance.now(),index=-1','let raf=0,last=performance.now(),index=-1\n  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches');s=s.replace('let nearest=0;', '''if(reduced){let k=0;while(k<C.keyframes.length-2&&m.progress>C.keyframes[k+1].p)k++;const a=C.keyframes[k],b=C.keyframes[k+1],t=smooth((m.progress-a.p)/(b.p-a.p));overlay.current?.style.setProperty('--cut-opacity',String(Math.max(0,1-Math.abs(t-.5)/.18)))}
+    let nearest=0;''');p.write_text(s)
+p=Path('src/App.tsx');s=p.read_text().replace('<div className="overlay" data-chapter={chapter} ref={overlay}>','<div className="overlay" data-chapter={chapter} ref={overlay}><div className="motion-cut" aria-hidden="true"/>');p.write_text(s)
+p=Path('src/App.css');s=p.read_text()+'\n.motion-cut{position:absolute;inset:0;background:#020304;opacity:var(--cut-opacity,0);pointer-events:none}\n';p.write_text(s)
