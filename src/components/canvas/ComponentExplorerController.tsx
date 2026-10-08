@@ -335,7 +335,9 @@ export function ComponentExplorerController({
       }
       clearHoverTimers()
       const related = event.relatedTarget
-      if (related instanceof Element && related.closest('.component-card,.component-list-toggle,.component-list-panel')) return
+      // Keep the preview active only while the pointer moves from the model to
+      // its detail card. Moving into the component catalog ends a mesh hover.
+      if (related instanceof Element && related.closest('.component-card')) return
       if (current.current) clear()
     }
 
