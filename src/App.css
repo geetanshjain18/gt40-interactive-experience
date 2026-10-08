@@ -212,32 +212,32 @@ button:focus-visible{outline-color:var(--color-focus)}
 .component-list-toggle{position:absolute;top:76px;right:4vw;min-height:36px;padding:0 10px;border:1px solid rgba(124,193,216,.3);background:rgba(7,16,23,.88);color:var(--warm-sand);font:500 10px/1 var(--mono);letter-spacing:.12em}
 .component-list-toggle span{padding-left:12px;color:var(--gulf-orange)}
 .component-hint{position:absolute;right:4vw;top:118px;color:var(--gulf-blue-muted);font:500 9px/1.2 var(--mono);letter-spacing:.14em;opacity:.9}
-.component-list-panel{position:absolute;right:4vw;top:118px;width:min(280px,86vw);max-height:min(60svh,510px);overflow:auto;padding:14px 16px;background:rgba(7,16,23,.97);border:1px solid rgba(216,200,168,.22);color:var(--warm-sand);overscroll-behavior:contain}
+.component-list-panel{position:absolute;right:4vw;top:76px;width:min(280px,86vw);max-height:min(72svh,620px);overflow:auto;padding:16px 18px;background:linear-gradient(150deg,rgba(14,34,43,.97),rgba(6,15,22,.98) 72%);border:1px solid rgba(124,193,216,.3);border-top:2px solid rgba(242,106,33,.76);box-shadow:0 18px 52px rgba(0,0,0,.34),inset 0 1px rgba(216,200,168,.06);color:var(--warm-sand);overscroll-behavior:contain}
 .component-list-panel section+section{margin-top:12px;padding-top:11px;border-top:1px solid rgba(124,193,216,.18)}
 .component-list-panel h3{margin:0 0 6px;color:var(--gulf-blue-muted);font:500 9px/1.3 var(--mono);letter-spacing:.1em}
 .component-list-panel button{display:block;width:100%;padding:7px 0;text-align:left;border:0;background:none;color:var(--warm-sand);font:500 13px/1.1 var(--body)}
 .component-list-panel button:hover,.component-list-panel button:focus-visible{color:var(--gulf-orange)}
 .component-connector{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.component-connector line{stroke:rgba(242,106,33,.82);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:component-line-in .24s ease-out .06s forwards}
-.component-connector .component-anchor-halo{fill:rgba(242,106,33,.08);stroke:rgba(242,106,33,.72);stroke-width:1;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:component-anchor-in .22s ease-out both}
-.component-connector circle:not(.component-anchor-halo){fill:var(--gulf-orange);stroke:rgba(216,200,168,.8);stroke-width:1;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:component-anchor-in .18s ease-out .04s both}
-.component-card{position:absolute;width:min(340px,29vw);box-sizing:border-box;padding:17px 18px 15px;background:rgba(7,20,27,.96);border:1px solid rgba(216,200,168,.24);border-top:1px solid rgba(124,193,216,.7);color:var(--warm-sand);animation:component-card-in .22s ease-out both}
-@keyframes component-card-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes component-detail-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.component-connector line{stroke:rgba(242,106,33,.82);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:component-line-in .32s cubic-bezier(.2,.75,.25,1) .04s forwards}
+.component-connector .component-anchor-halo{fill:rgba(242,106,33,.08);stroke:rgba(242,106,33,.72);stroke-width:1;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:component-anchor-in .28s cubic-bezier(.2,.8,.25,1) both}
+.component-connector circle:not(.component-anchor-halo){fill:var(--gulf-orange);stroke:rgba(216,200,168,.8);stroke-width:1;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:component-anchor-in .24s cubic-bezier(.2,.8,.25,1) .03s both}
+.component-card{position:absolute;width:min(340px,29vw);box-sizing:border-box;padding:17px 18px 15px;background:rgba(7,20,27,.96);border:1px solid rgba(216,200,168,.24);border-top:1px solid rgba(124,193,216,.7);color:var(--warm-sand);transform-origin:top center;animation:component-card-in .34s cubic-bezier(.18,.78,.22,1) both;will-change:transform,opacity}
+@keyframes component-card-in{from{opacity:0;transform:translateY(11px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes component-detail-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @keyframes component-line-in{to{stroke-dashoffset:0}}
 @keyframes component-anchor-in{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
 .component-card-top{display:flex;align-items:center;gap:10px;min-height:17px}
-.component-card-top p{margin:0;color:var(--gulf-blue-muted);font:500 9px/1.3 var(--mono);letter-spacing:.09em;animation:component-detail-in .22s ease-out .04s both}
+.component-card-top p{margin:0;color:var(--gulf-blue-muted);font:500 9px/1.3 var(--mono);letter-spacing:.09em;animation:component-detail-in .24s ease-out .07s both}
 .component-card-top>span{margin-left:auto;color:var(--gulf-orange);font:500 8px/1 var(--mono);letter-spacing:.1em}
 .component-close{width:28px;height:28px;margin:-6px -8px -6px 0;padding:0;border:0;background:none;color:var(--warm-sand);font:400 21px/1 var(--body)}
-.component-card h2{margin:11px 0 8px;color:var(--warm-sand);font:650 clamp(23px,2vw,30px)/.98 var(--display);text-transform:uppercase;letter-spacing:.015em;animation:component-detail-in .24s ease-out .07s both}
-.component-purpose{margin:0;color:var(--color-text-secondary);font:400 12px/1.48 var(--body);animation:component-detail-in .24s ease-out .11s both}
+.component-card h2{margin:11px 0 8px;color:var(--warm-sand);font:650 clamp(23px,2vw,30px)/.98 var(--display);text-transform:uppercase;letter-spacing:.015em;animation:component-detail-in .27s ease-out .11s both}
+.component-purpose{margin:0;color:var(--color-text-secondary);font:400 12px/1.48 var(--body);animation:component-detail-in .25s ease-out .15s both}
 .component-card dl{margin:13px 0 0;border-top:1px solid rgba(124,193,216,.18)}
-.component-card dl>div{display:flex;justify-content:space-between;gap:12px;padding:7px 0 0;animation:component-detail-in .22s ease-out both}
-.component-card dl>div:nth-child(1){animation-delay:.14s}.component-card dl>div:nth-child(2){animation-delay:.18s}.component-card dl>div:nth-child(3){animation-delay:.22s}
+.component-card dl>div{display:flex;justify-content:space-between;gap:12px;padding:7px 0 0;animation:component-detail-in .24s ease-out both}
+.component-card dl>div:nth-child(1){animation-delay:.19s}.component-card dl>div:nth-child(2){animation-delay:.23s}.component-card dl>div:nth-child(3){animation-delay:.27s}
 .component-card dt{color:var(--muted-metal);font:500 8px/1.35 var(--mono);letter-spacing:.1em}
 .component-card dd{margin:0;text-align:right;color:var(--warm-sand);font:500 9px/1.35 var(--mono);letter-spacing:.025em}
-.component-pin{margin-top:13px;padding:0 0 4px;border:0;border-bottom:1px solid rgba(242,106,33,.6);background:none;color:var(--gulf-orange);font:500 9px/1.3 var(--mono);letter-spacing:.1em;animation:component-detail-in .22s ease-out .24s both}
+.component-pin{margin-top:13px;padding:0 0 4px;border:0;border-bottom:1px solid rgba(242,106,33,.6);background:none;color:var(--gulf-orange);font:500 9px/1.3 var(--mono);letter-spacing:.1em;animation:component-detail-in .24s ease-out .31s both}
 .component-card button:focus-visible,.component-list-toggle:focus-visible,.component-list-panel button:focus-visible{outline:2px solid var(--gulf-orange);outline-offset:3px}
 @media(max-width:900px){.component-card{width:min(340px,40vw)}}
 @media(min-width:701px) and (max-width:900px){
@@ -247,7 +247,7 @@ button:focus-visible{outline-color:var(--color-focus)}
 @media(max-width:700px),(pointer:coarse){
   .component-list-toggle{top:242px;right:14px}
   .component-hint{top:335px;right:14px}
-  .component-list-panel{top:335px;right:14px;width:min(300px,calc(100vw - 28px));max-height:44svh}
+  .component-list-panel{top:76px;right:14px;width:min(300px,calc(100vw - 28px));max-height:62svh}
   .component-connector line{stroke-dasharray:3 3;opacity:.75}
   .component-card{position:absolute;width:calc(100vw - 28px);max-height:38svh;overflow:auto;padding:15px 16px calc(15px + env(safe-area-inset-bottom));}
   .component-card h2{font-size:26px}

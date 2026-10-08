@@ -32,7 +32,6 @@ export default function App() {
   const overlay = useRef<HTMLDivElement>(null)
   const audio  = useRef<EngineAudio | null>(null)
   const started = useRef(false)
-  const explorerHintShown = useRef(false)
   const explorerActions = useRef<ExplorerActions>({ select: () => false, lock: () => {}, close: () => {} })
 
   const [muted, setMuted]                   = useState(true)
@@ -44,8 +43,6 @@ export default function App() {
   const [canvasKey, setCanvasKey]           = useState(0)
   const [catalog, setCatalog] = useState<VehicleComponent[]>([])
   const [selection, setSelection] = useState<InspectionSelection | null>(null)
-  const [componentListOpen, setComponentListOpen] = useState(false)
-  const [hintVisible, setHintVisible] = useState(false)
   const [cardPosition, setCardPosition] = useState({ left: 0, top: 0, width: 0, height: 0, edgeX: 0, edgeY: 0 })
 
   useEffect(() => {
@@ -78,20 +75,10 @@ export default function App() {
   const complete      = useCallback(() => { dispatch({ type: 'COMPLETE' }) }, [dispatch])
   useMotion(state.phase, motion, wake, overlay, complete, setChapter)
 
-  const onComponentSelection = useCallback((next: InspectionSelection | null) => { setSelection(next); if (next) setHintVisible(false) }, [])
+  const onComponentSelection = useCallback((next: InspectionSelection | null) => { setSelection(next) }, [])
   const onComponentCatalog = useCallback((items: VehicleComponent[]) => {
     setCatalog(items)
-    if (!explorerHintShown.current && items.length > 0) {
-      explorerHintShown.current = true
-      setHintVisible(true)
-    }
   }, [])
-
-  useEffect(() => {
-    if (!hintVisible) return
-    const timeout = window.setTimeout(() => setHintVisible(false), 4200)
-    return () => window.clearTimeout(timeout)
-  }, [hintVisible])
 
   useEffect(() => {
     if (!selection) return
@@ -291,15 +278,13 @@ export default function App() {
           )}
 
           {exploring && catalog.length > 0 && (
-            <div className="component-explorer" onPointerEnter={() => setHintVisible(false)}>
-              <button className="component-list-toggle" aria-expanded={componentListOpen} aria-controls="component-list" onClick={() => { setComponentListOpen(open => !open); setHintVisible(false) }}>COMPONENTS <span>{catalog.length.toString().padStart(2, '0')}</span></button>
-              {componentListOpen && <nav className="component-list-panel" id="component-list" aria-label="GT40 components">
+            <div className="component-explorer">
+              <nav className="component-list-panel" id="component-list" aria-label="GT40 components">
                 {CATEGORY_ORDER.map(category => {
                   const members = catalog.filter(component => component.category === category)
-                  return members.length ? <section key={category}><h3>{CATEGORY_LABELS[category]}</h3>{members.map(component => <button key={component.id} onClick={() => { if (explorerActions.current.select(component.id)) { explorerActions.current.lock(); setHintVisible(false); setComponentListOpen(false) } }} aria-label={`Inspect ${component.name}`}>{component.shortName}</button>)}</section> : null
+                  return members.length ? <section key={category}><h3>{CATEGORY_LABELS[category]}</h3>{members.map(component => <button key={component.id} onClick={() => { if (explorerActions.current.select(component.id)) explorerActions.current.lock() }} aria-label={`Inspect ${component.name}`}>{component.shortName}</button>)}</section> : null
                 })}
-              </nav>}
-              {hintVisible && <p className="component-hint">{matchMedia('(hover: hover) and (pointer: fine)').matches ? 'HOVER TO INSPECT' : 'TAP A COMPONENT TO INSPECT'}</p>}
+              </nav>
               {selection && <>
                 <svg className="component-connector" aria-hidden="true"><line pathLength="1" x1={selection.anchor.x} y1={selection.anchor.y} x2={cardPosition.edgeX} y2={cardPosition.edgeY} /><circle className="component-anchor-halo" cx={selection.anchor.x} cy={selection.anchor.y} r="7" /><circle cx={selection.anchor.x} cy={selection.anchor.y} r="2.5" /></svg>
                 <article key={selection.component.id} className={`component-card${selection.locked ? ' is-locked' : ''}`} style={{ left: cardPosition.left, top: cardPosition.top, width: cardPosition.width, maxHeight: cardPosition.height }} aria-labelledby="component-title" aria-live={selection.locked ? 'polite' : 'off'}>
