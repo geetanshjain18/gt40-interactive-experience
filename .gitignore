@@ -20,6 +20,7 @@ dist-ssr
 artifacts/
 test-results/
 debug-*.png
+PROJECT_MEMORY.md
 
 # Keep only the model used by the published study; the other assets are legacy references.
 public/models/*
