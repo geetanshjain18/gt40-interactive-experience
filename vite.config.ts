@@ -4,9 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // GitHub Pages serves project sites from /<repository>/ rather than /.
-  // The Actions workflow sets VITE_BASE_PATH from the repository name.
-  base: process.env.VITE_BASE_PATH ?? '/',
+  base: '/',
   plugins: [react(), {
     name: 'study-production-assets',
     apply: 'build',
